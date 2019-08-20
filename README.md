@@ -1,6 +1,9 @@
 # System Description and Code for CCF-BDCI-2018-Car Reviews Sentiment Competition (汽车行业用户观点主题及情感识别)
 
-**THESE CODES MIGHT NOT BE RUNNABLE!!**
+## 0. Requirements
+* Python 3.6
+* Pytorch 1.0
+* **!!THESE CODES MIGHT NOT BE RUNNABLE!!**
 
 ## 1. Task Description
 CCF BDCI 2018 Car Reviews Sentiment Competition (汽车行业用户观点主题及情感识别)
