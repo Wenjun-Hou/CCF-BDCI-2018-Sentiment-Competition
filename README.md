@@ -8,14 +8,14 @@ CCF BDCI 2018 Car Reviews Sentiment Competition (汽车行业用户观点主题�
 
 Final Rank: 19/1701
 
-#### 1.1 Aspect 10-Classes & Data Distribution
+#### 1.1 Aspect 10-Classes & Training Data Distribution
 Power(动力), Price(价格), Interior(内饰), Configure(配置), Safety(安全性), Appearance(外观), Control(操控), Oil consumption(油耗), Space(空间), Comfort(舒适性)
 
 | Power | Price | Interior | Configure | Safety | Appearance | Control | Oil consumption | Space | Comfort |
 | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
 | 3454 | 1634 | 669 | 1075 | 736 | 606 | 1302 | 1379 | 535 | 1182 |
 
-#### 1.2 Sentiment Data Distribution
+#### 1.2 Sentiment Training Data Distribution
 | Positive | Neutral | Negative | Total |
 | :----: | :----: | :----: | :----: |
 | 2048 | 8488 | 2036 | 12572 |
