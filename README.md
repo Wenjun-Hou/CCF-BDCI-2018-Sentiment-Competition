@@ -39,7 +39,7 @@ We use the [LTP](http://www.ltp-cloud.com/) for word segmentation and [word2vec]
 
 ### 2.1 Sentence Encoder
 
-#### 2.1.1 Hierarchical Word-/Char-/Pinyin-based Sentence Encoder
+#### 2.1.1 Hierarchical Word-/Char-/Pinyin-based Sentence Encoder (Definition of [Pinyin](https://en.wikipedia.org/wiki/Pinyin))
 
 In this system, we use three kinds of inputs for this hierarchical encoder, and they are word-input, char-input and pinyin-input which could partly reduce the effect of misspelling and introduce generalization. Because a single clause can express enough information for a aspect and its sentiment, we first use a GRU encoder to extract word-/char-/pinyin-features, then an attention layer is used to extract clause features (BiGRU-Attention Layer). Finally, we can get a sequence of clause features for each kind of input, so the BiGRU-Attention Layer is used again to select important information.
 
