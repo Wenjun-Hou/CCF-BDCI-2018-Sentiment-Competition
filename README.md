@@ -72,7 +72,7 @@ In Aspect Classification, we use three neural networks for Aspect Classification
 
 **AspectNet:** AspectNet simply use a linear layer as decoder. 
 
-**RethinkNet:** Inspired by [TODO], we first sort the label according to their sampley size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally a single direction GRU layer is applied to this sequence (Figure 5).
+**RethinkNet:** Inspired by [TODO], we first sort the label according to their sampley size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally a single directional GRU layer is applied to this sequence (Figure 5).
 
 <img src="images/RethinkNet.png" width="500" height="350" align=center>
 
