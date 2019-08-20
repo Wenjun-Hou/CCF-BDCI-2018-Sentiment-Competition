@@ -39,7 +39,7 @@ We use the [LTP](http://www.ltp-cloud.com/) for word segmentation and [word2vec]
 
 #### 2.1.1 Hierarchical Word-/Char-/Pinyin-based Sentence Encoder
 
-In this system, we use three kinds of inputs for this hierarchical encoder, and they are word-input, char-input and pinyin-input which could partly reduce the effect of misspelling and introduce generalization. Because a single clause can express enough information for a aspect and its sentiment, we first use a GRU encoder to extract word-/char-/pinyin-features, then an attention layer is used to extract clause features (GRU-Attention Layer). Finally, we can get a sequence of clause features for each kind of input, so the GRU-Attention Layer is used again to select important information.
+In this system, we use three kinds of inputs for this hierarchical encoder, and they are word-input, char-input and pinyin-input which could partly reduce the effect of misspelling and introduce generalization. Because a single clause can express enough information for a aspect and its sentiment, we first use a GRU encoder to extract word-/char-/pinyin-features, then an attention layer is used to extract clause features (BiGRU-Attention Layer). Finally, we can get a sequence of clause features for each kind of input, so the BiGRU-Attention Layer is used again to select important information.
 
 ![avatar](images/(A)HUARN.png)
 
@@ -49,32 +49,34 @@ Besides hierarchical encoder, we also use simple sentence encoder to extract var
 
 * Word-Input (Figure 2)
 	* Aspect Classification (AC): we only use a simple LSTM-Attention Layer to extract features.
-	* Sentiment Classification (SC): besides the LSTM-Attention Layer used in AC, we also build a aspect-specific LSTM-Attention Layer to extract features.
+	* Sentiment Classification (SC): besides the BiLSTM-Attention Layer used in AC, we also build a aspect-specific BiLSTM-Attention Layer to extract features.
 
 ![avatar](images/WordNN.png)
 
-* Char-Input (Figure 3): we first use CNN to extract local char context features, then we use LSTM/GRU-Attention Layer to extract global features.
+* Char-Input (Figure 3): we first use CNN to extract local char context features, then we use BiLSTM/BiGRU-Attention Layer to extract global features.
 
 ![avatar](images/CharNN.png)
 
 #### 2.1.3 Multi-Features Encoder
+In order to compromise all the extracted features, a convolutional layer is used to fuse these features in different perspective to get sentence representation. On top of this representation, we adopt a highway layer to get the final sentence representation (**Rep**).
 
 ![avatar](images/Multi-FeatureEncoder.png)
 
 ### 2.2 Aspect Classification
-In Aspect Classification, we use three neural networks for Aspect Classification ([AspectNet](code/model/aspect_net.py), [RethinkNet](code/model/rethink_aspect_net.py), and [SequenceNet](code/model/sequence_aspect_net.py)), which all use the same set of encoders (see 2.1). These neural networks consist of a specific aspect encoder.
+In Aspect Classification, we use three neural networks for Aspect Classification (AspectNet, RethinkNet, and SequenceNet), which all use the same set of encoders (see Section 2.1).
 
-#### 2.2.1 AspectNet
+**AspectNet:** AspectNet simply use a linear layer as decoder. 
 
+**RethinkNet:** Inspired by [TODO], we first sort the label according to their sampley size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments) times and form a sequence. Finally a single direction GRU layer is applied to this sequence (Figure 5).
 
-#### 2.2.2 RethinkNet
-#### 2.2.3 SequenceNet
+<img src="images/RethinkNet.png" width="500" height="350" align=center>
 
+**SequenceNet:** Inspired by [TODO], we treat this multi-label classification as a sequence labeling task, for there are some connections between different labels. To be specific, for each predicted label, we create a label embedding for it, and this label embedding will be used for the next label prediction. Furthermore, in order to select important information between previous label embedding and current label embedding, we introduce a gate layer (Figure 6).
+
+![avatar](images/SequenceNet.png)
 
 ### 2.3 Sentiment Classification
-
-## 3. Experiment
-
+Similar to Aspect Classification, in Sentiment Classification, we use the same set of features and encoders plus the predicted aspects from Section 2.2 for each sentence.  
 
 ## Reference
 1. Shuai Wang, Sahisnu Mazumder, Bing Liu, Mianwei Zhou, Yi Chang. 2018. Target-Sensitive Memory Networks for Aspect Sentiment Classification. In *Proceedings of ACL*.
