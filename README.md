@@ -44,7 +44,7 @@ We use the [LTP](http://www.ltp-cloud.com/) for word segmentation and [word2vec]
 
 #### 2.1.1 Hierarchical Word-/Char-/Pinyin-based Sentence Encoder (Definition of [Pinyin](https://en.wikipedia.org/wiki/Pinyin))
 
-In this system, we use three kinds of inputs for this hierarchical encoder, and they are word-input, char-input and pinyin-input which could partly reduce the effect of misspelling and introduce generalization. Because a single clause can express enough information for a aspect and its sentiment, we first use a GRU encoder to extract word-/char-/pinyin-features, then an attention layer is used to extract clause features (BiGRU-Attention Layer). Finally, we can get a sequence of clause features for each kind of input, so the BiGRU-Attention Layer is used again to select important information.
+In this system, we use three kinds of inputs for this hierarchical encoder, and they are word-input, char-input, and pinyin-input, which could partly reduce the effect of misspelling and introduce generalization. Because a single clause can express enough information for an aspect and its sentiment, we first use a GRU encoder to extract word-/char-/pinyin-features, then an attention layer is used to extract clause features (BiGRU-Attention Layer). Finally, we can get a sequence of clause features for each kind of input, so the BiGRU-Attention Layer is used again to select relevant information.
 
 ![avatar](images/(A)HUARN.png)
 
@@ -53,30 +53,30 @@ In this system, we use three kinds of inputs for this hierarchical encoder, and 
 Besides hierarchical encoder, we also use simple sentence encoder to extract various features. 
 
 * Word-Input (Figure 2)
-	* Aspect Classification (AC): we only use a simple LSTM-Attention Layer to extract features.
-	* Sentiment Classification (SC): besides the BiLSTM-Attention Layer used in AC, we also build a aspect-specific BiLSTM-Attention Layer to extract features.
+	* Aspect Category Detection (ACD): we only use a simple LSTM-Attention Layer to extract features.
+	* Sentiment Classification (SC): besides the BiLSTM-Attention Layer used in ACD, we also build an aspect-specific BiLSTM-Attention Layer to extract features.
 
 ![avatar](images/WordNN.png)
 
-* Char-Input (Figure 3): we first use CNN to extract local char context features, then we use BiLSTM/BiGRU-Attention Layer to extract global features.
+* Char-Input (Figure 3): we first use CNN to extract local char context features, and then we use BiLSTM/BiGRU-Attention Layer to extract global features.
 
 ![avatar](images/CharNN.png)
 
 #### 2.1.3 Multi-Features Encoder
-In order to compromise all the extracted features, a convolutional layer is used to fuse these features in different perspective to get sentence representation. On top of this representation, we adopt a highway layer to get the final sentence representation (**Rep**).
+A convolutional layer is used to fuse these features from a different perspective to get sentence representation. On top of this representation, we adopt a highway layer to get the final sentence representation (**Rep**).
 
 ![avatar](images/Multi-FeatureEncoder.png)
 
 ### 2.2 Aspect Classification
-In Aspect Classification, we use three neural networks for Aspect Classification (AspectNet, RethinkNet, and SequenceNet), which all use the same set of encoders (see Section 2.1).
+In Aspect Classification, we use three neural networks for Aspect Category Detection (AspectNet, RethinkNet, and SequenceNet), which all use the same set of encoders (see Section 2.1).
 
-**AspectNet:** AspectNet simply use a linear layer as decoder. 
+**AspectNet:** AspectNet simply use a linear layer as the decoder. 
 
-**RethinkNet:** Inspired by [TODO], we first sort the label according to their sampley size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally a single directional GRU layer is applied to this sequence (Figure 5).
+**RethinkNet:** Inspired by [TODO], we first sort the label according to their sample size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally, a single directional GRU layer is applied to this sequence (Figure 5).
 
 <img src="images/RethinkNet.png" width="500" height="350" align=center>
 
-**SequenceNet:** Inspired by [TODO], we treat this multi-label classification as a sequence labeling task, for there are some connections between different labels. To be specific, for each predicted label, we create a label embedding for it, and this label embedding will be used for the next label prediction. Furthermore, in order to select important information between previous label embedding and current label embedding, we introduce a gate layer (Figure 6).
+**SequenceNet:** Inspired by [TODO], we treat this multi-label classification as a sequence labeling task, for there are some connections between different labels. To be specific, for each predicted label, we create a label embedding for it, and this label embedding will be used for the next label prediction. Furthermore, to select relevant information between previous label embedding and current label embedding, we introduce a gate layer (Figure 6).
 
 ![avatar](images/SequenceNet.png)
 
