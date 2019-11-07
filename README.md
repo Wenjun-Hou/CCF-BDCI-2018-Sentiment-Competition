@@ -72,11 +72,11 @@ In Aspect Classification, we use three neural networks for Aspect Category Detec
 
 **AspectNet:** AspectNet simply use a linear layer as the decoder. 
 
-**RethinkNet:** Inspired by [TODO], we first sort the label according to their sample size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally, a single directional GRU layer is applied to this sequence (Figure 5).
+**RethinkNet:** Inspired by [16], we first sort the label according to their sample size in descending order, and then we duplicate the **Rep** n (n=10 in the experiments, where n is the total aspect number) times and form a sequence. Finally, a single directional GRU layer is applied to this sequence (Figure 5).
 
 <img src="images/RethinkNet.png" width="500" height="350" align=center>
 
-**SequenceNet:** Inspired by [TODO], we treat this multi-label classification as a sequence labeling task, for there are some connections between different labels. To be specific, for each predicted label, we create a label embedding for it, and this label embedding will be used for the next label prediction. Furthermore, to select relevant information between previous label embedding and current label embedding, we introduce a gate layer (Figure 6).
+**SequenceNet:** Inspired by [17], we treat this multi-label classification as a sequence labeling task, for there are some connections between different labels. To be specific, for each predicted label, we create a label embedding for it, and this label embedding will be used for the next label prediction. Furthermore, to select relevant information between previous label embedding and current label embedding, we introduce a gate layer (Figure 6).
 
 ![avatar](images/SequenceNet.png)
 
@@ -100,3 +100,4 @@ Similar to Aspect Classification, in Sentiment Classification, we use the same s
 14. Alon Rozental and Daniel Fleischer. 2018. Amobee at SemEval-2018 Task 1: GRU Neural Network with a CNN Attention Mechanism for Sentiment Classification. In *Proceedings of SemEval-2018*.
 15. Chuhan Wu, Fangzhao Wu, Junxin Liu, Zhigang Yuan, Sixing Wu and Yongfeng Huang. 2018. THU NGN at SemEval-2018 Task 1: Fine-grained Tweet Sentiment Intensity Analysis with Attention CNN-LSTM. In *Proceedings of SemEval-2018*.
 16. Yao-Yuan Yang, Yi-An Lin, Hong-Min Chu, and Hsuan-Tien Lin. 2018. Deep Learning with a Rethinking Structure for Multi-label Classification. *arXiv:1802.01697v1*.
+17. Pengcheng Yang, Xu Sun, Wei Li, Shuming Ma, Wei Wu, and Houfeng Wang. 2018. SGM: Sequence Generation Model for Multi-Label Classification. In *Proceedings of the 27th International Conference on Computational Linguistics*, pages 3915–3926.
