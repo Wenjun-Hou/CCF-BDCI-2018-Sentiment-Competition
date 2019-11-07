@@ -23,8 +23,8 @@ Power(动力), Price(价格), Interior(内饰), Configure(配置), Safety(安全
 | :----: | :----: | :----: | :----: |
 | 2048 | 8488 | 2036 | 12572 |
 
-#### 1.3 Two Stage Classification Task: Aspect Classification & Sentiment Classification
-Predict Aspect->Aspect-based Sentiment Classification. Since each review might mention several aspects, aspect classification is a multi-label classification task.
+#### 1.3 Two Stage Classification Task: Aspect Category Detection & Sentiment Classification
+Predict Aspect->Aspect-based Sentiment Classification. Since each review might mention several aspects, Aspect Category Detection is a multi-label classification task.
 
 #### Example:
 >Chinese: 开过几个车，森(林人)是最费油的。
@@ -67,8 +67,8 @@ A convolutional layer is used to fuse these features from a different perspectiv
 
 ![avatar](images/Multi-FeatureEncoder.png)
 
-### 2.2 Aspect Classification
-In Aspect Classification, we use three neural networks for Aspect Category Detection (AspectNet, RethinkNet, and SequenceNet), which all use the same set of encoders (see Section 2.1).
+### 2.2 Aspect Category Detection
+In ACD, we use three neural networks(AspectNet, RethinkNet, and SequenceNet), which have the same set of encoders (see Section 2.1).
 
 **AspectNet:** AspectNet simply use a linear layer as the decoder. 
 
@@ -81,7 +81,7 @@ In Aspect Classification, we use three neural networks for Aspect Category Detec
 ![avatar](images/SequenceNet.png)
 
 ### 2.3 Sentiment Classification
-Similar to Aspect Classification, in Sentiment Classification, we use the same set of features and encoders plus the predicted aspects from Section 2.2 for each sentence.  
+Similar to ACD, in Sentiment Classification, we use the same set of features and encoders plus the predicted aspects from Section 2.2 for each sentence.  
 
 ## Reference
 1. Shuai Wang, Sahisnu Mazumder, Bing Liu, Mianwei Zhou, Yi Chang. 2018. Target-Sensitive Memory Networks for Aspect Sentiment Classification. In *Proceedings of ACL*.
